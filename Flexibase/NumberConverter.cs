@@ -16,10 +16,7 @@ namespace Flexibase
             string output = "";
             using var enumerator = Sequence.GetEnumerator();
 
-            enumerator.MoveNext();
-
-            // the cycle repeats until no numbers left
-            for (; ; )
+            while (enumerator.MoveNext())
             {
                 string lastState = "";
 
@@ -29,15 +26,10 @@ namespace Flexibase
                     lastState = task.GetResult(number, lastState);
                 }
 
-                output += lastState;
-
-                if (enumerator.MoveNext())
-                {
+                if (output.Length > 0) 
                     output += ", ";
-                    continue;
-                }
 
-                break;
+                output += lastState;
             }
 
             return output;
